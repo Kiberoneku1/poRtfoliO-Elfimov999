@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Елфимов Евгений - Портфолио в стиле Евангелион</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Светлая тема - Аянами Рей */
+            --rei-bg: #f0f8ff;
+            --rei-text: #1a237e;
+            --rei-accent: #3f51b5;
+            --rei-secondary: #7986cb;
+            --rei-card: #e8eaf6;
+            --rei-shadow: rgba(63, 81, 181, 0.2);
+            --rei-highlight: #e3f2fd;
+
+            /* Темная тема - Аска Лэнгли */
+            --aska-bg: #1a0033;
+            --aska-text: #ff4081;
+            --aska-accent: #ff4081;
+            --aska-secondary: #7c4dff;
+            --aska-card: #2d0052;
+            --aska-shadow: rgba(255, 64, 129, 0.3);
+            --aska-highlight: #4a0072;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.5s, color 0.5s, border-color 0.5s;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Стили для светлой темы (по умолчанию) */
+        body.rei-theme {
+            --bg-color: var(--rei-bg);
+            --text-color: var(--rei-text);
+            --accent-color: var(--rei-accent);
+            --secondary-color: var(--rei-secondary);
+            --card-color: var(--rei-card);
+            --shadow-color: var(--rei-shadow);
+            --highlight-color: var(--rei-highlight);
+
+            background-image:
+                linear-gradient(45deg, var(--rei-bg) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--rei-bg) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--rei-bg) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--rei-bg) 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+        }
+
+        /* Стили для темной темы */
+        body.aska-theme {
+            --bg-color: var(--aska-bg);
+            --text-color: var(--aska-text);
+            --accent-color: var(--aska-accent);
+            --secondary-color: var(--aska-secondary);
+            --card-color: var(--aska-card);
+            --shadow-color: var(--aska-shadow);
+            --highlight-color: var(--aska-highlight);
+
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(255, 64, 129, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(124, 77, 255, 0.05) 0%, transparent 20%);
+            background-size: 100% 100%;
+        }
+
+        /* Анимация появления элементов */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes neonGlow {
+
+            0%,
+            100% {
+                text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+            }
+
+            50% {
+                text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px var(--accent-color);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--card-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--accent-color);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px var(--shadow-color);
+            animation: neonGlow 3s infinite;
+        }
+
+        .logo-icon {
+            color: var(--accent-color);
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--highlight-color);
+            color: var(--accent-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .theme-toggle {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px var(--shadow-color);
+        }
+
+        .theme-icon {
+            font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 0;
+            animation: fadeInUp 1s ease-out;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px var(--shadow-color);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero h1::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+            transform: scaleX(0.7);
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            max-width: 600px;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border: 3px solid var(--accent-color);
+            animation: float 5s ease-in-out infinite;
+            max-height: 500px;
+            object-fit: cover;
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .skill-card {
+            background-color: var(--card-color);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            border-left: 5px solid var(--accent-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+
+        .skill-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-icon {
+            color: var(--secondary-color);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed var(--secondary-color);
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .skill-list li::before {
+            content: '▶';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        /* Qualities */
+        .qualities-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .quality-item {
+            background-color: var(--card-color);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            width: 180px;
+            text-align: center;
+            transition: transform 0.3s;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .quality-item:hover {
+            transform: scale(1.05);
+        }
+
+        .quality-icon {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        /* Dreams */
+        .dreams-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .dream-card {
+            background-color: var(--card-color);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-color);
+            width: 250px;
+            text-align: center;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .dream-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+        }
+
+        .dream-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--card-color);
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 2px solid var(--accent-color);
+            text-align: center;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .copyright {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .creator {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        .eva-reference {
+            font-style: italic;
+            margin-top: 10px;
+            color: var(--secondary-color);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1::after {
+                left: 50%;
+                transform: translateX(-50%) scaleX(0.7);
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Анимации для появления элементов с задержкой */
+        .animate-delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        .animate-delay-4 {
+            animation-delay: 0.4s;
+        }
+
+        .animate-delay-5 {
+            animation-delay: 0.5s;
+        }
+
+        /* Стили для тегов NERV и SEELE */
+        .nerv-tag,
+        .seele-tag {
+            position: absolute;
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .nerv-tag {
+            background-color: #ff4081;
+            color: white;
+        }
+
+        .seele-tag {
+            background-color: #3f51b5;
+            color: white;
+        }
+
+        /* Декоративные элементы в стиле Евангелиона */
+        .eva-decoration {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.05;
+        }
+
+        .eva-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 8rem;
+            color: var(--accent-color);
+            transform: rotate(-15deg);
+        }
+
+        .eva-2 {
+            bottom: 10%;
+            right: 5%;
+            font-size: 8rem;
+            color: var(--accent-color);
+            transform: rotate(15deg);
+        }
+    </style>
+</head>
+
+<body class="rei-theme">
+    <!-- Декоративные элементы -->
+    <div class="eva-decoration eva-1">NERV</div>
+    <div class="eva-decoration eva-2">SEELE</div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="logo-text">Елфимов Евгений</div>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#skills">Навыки</a></li>
+                    <li><a href="#qualities">Качества</a></li>
+                    <li><a href="#dreams">Мечты</a></li>
+                </ul>
+            </nav>
+
+            <button class="theme-toggle" id="themeToggle">
+                <span class="theme-icon" id="themeIcon">
+                    <i class="fas fa-moon"></i>
+                </span>
+                <span id="themeText">Тема: Рей</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero" id="about">
+            <div class="hero-content">
+                <h1>Елфимов Евгений</h1>
+                <h2>11 лет, Каменск-Уральский</h2>
+                <p>Ученик школы программирования <strong>KIBERone</strong>. Я увлекаюсь созданием цифровых миров и
+                    изучением технологий будущего. Мне нравится сочетать технические навыки с творчеством — от
+                    программирования нейросетей до лепки из пластилина.</p>
+                <p>Верю, что технологии должны делать мир лучше, а доброе отношение к людям — ключ к успеху в любом
+                    деле.</p>
+            </div>
+            <div class="hero-image">
+                <img src="hero.png" alt="Елфимов Евгений"
+                    onerror="this.src='https://images.unsplash.com/photo-1517697471339-4aa32003c11a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80'">
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2 class="section-title">Мои цифровые навыки</h2>
+            <div class="skills-grid">
+                <div class="skill-card animate-delay-1">
+                    <h3><i class="fas fa-code skill-icon"></i> Программирование</h3>
+                    <ul class="skill-list">
+                        <li>Vibe Coding</li>
+                        <li>Thunkable (мобильные приложения)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card animate-delay-2">
+                    <h3><i class="fas fa-brain skill-icon"></i> ИИ и Нейросети</h3>
+                    <ul class="skill-list">
+                        <li>Основы искусственного интеллекта</li>
+                        <li>Работа с нейросетями</li>
+                        <li>Обучение голосовых помощников</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card animate-delay-3">
+                    <h3><i class="fas fa-gamepad skill-icon"></i> Геймдев и 3D</h3>
+                    <ul class="skill-list">
+                        <li>Создание карт в Roblox</li>
+                        <li>Моделирование в Tinkercad</li>
+                        <li>Minecraft Education</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card animate-delay-4">
+                    <h3><i class="fas fa-paint-brush skill-icon"></i> Дизайн и Презентации</h3>
+                    <ul class="skill-list">
+                        <li>Adobe Photoshop</li>
+                        <li>Figma</li>
+                        <li>Microsoft PowerPoint</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card animate-delay-5">
+                    <h3><i class="fas fa-server skill-icon"></i> Веб и Серверы</h3>
+                    <ul class="skill-list">
+                        <li>Яндекс Облако (Яндекс Сервер)</li>
+                        <li>Цифровая база школьника</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Qualities Section -->
+        <section id="qualities">
+            <h2 class="section-title">Мои качества и хобби</h2>
+            <div class="qualities-container">
+                <div class="quality-item animate-delay-1">
+                    <div class="quality-icon">🧠</div>
+                    <h4>Аналитический ум</h4>
+                    <p>Хорош в математике</p>
+                </div>
+
+                <div class="quality-item animate-delay-2">
+                    <div class="quality-icon">🎮</div>
+                    <h4>Стратег</h4>
+                    <p>Отлично играю в игры</p>
+                </div>
+
+                <div class="quality-item animate-delay-3">
+                    <div class="quality-icon">✂️</div>
+                    <h4>Золотые руки</h4>
+                    <p>Прекрасно шью и леплю</p>
+                </div>
+
+                <div class="quality-item animate-delay-4">
+                    <div class="quality-icon">😊</div>
+                    <h4>Добрый и счастливый</h4>
+                    <p>Позитивный настрой</p>
+                </div>
+
+                <div class="quality-item animate-delay-5">
+                    <div class="quality-icon">🍳</div>
+                    <h4>Кулинар</h4>
+                    <p>Люблю готовить</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dreams Section -->
+        <section id="dreams">
+            <h2 class="section-title">Мои мечты и цели</h2>
+            <div class="dreams-container">
+                <div class="dream-card animate-delay-1">
+                    <div class="dream-icon">🏠</div>
+                    <h3>Уютный дом</h3>
+                    <p>Мечтаю о своем уютном доме, где будет комфортно и тепло</p>
+                </div>
+
+                <div class="dream-card animate-delay-2">
+                    <div class="dream-icon">🐕</div>
+                    <h3>Верный друг</h3>
+                    <p>Хочу завести небольшую собачку - верного друга и компаньона</p>
+                </div>
+
+                <div class="dream-card animate-delay-3">
+                    <div class="dream-icon">🎨</div>
+                    <h3>Творческий рост</h3>
+                    <p>Научиться красиво рисовать, сочетая цифровое и традиционное искусство</p>
+                </div>
+
+                <div class="dream-card animate-delay-4">
+                    <div class="dream-icon">🤝</div>
+                    <h3>Настоящие друзья</h3>
+                    <p>Окружить себя добрыми и верными друзьями для совместных проектов</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="copyright">
+                © 2025 Портфолио Елфимова Евгения. Все права защищены.
+            </div>
+            <div class="creator">
+                Сайт создан: Елфимов Евгений
+            </div>
+            <div class="eva-reference">
+                Дизайн вдохновлён вселенной "Евангелион" | Синхронизация: 400%
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Переключение темы
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        const body = document.body;
+
+        // Проверяем, какая тема сохранена в localStorage
+        const savedTheme = localStorage.getItem('portfolioTheme') || 'rei';
+
+        // Применяем сохраненную тему при загрузке
+        if (savedTheme === 'aska') {
+            body.classList.remove('rei-theme');
+            body.classList.add('aska-theme');
+            themeIcon.innerHTML = '<i class="fas fa-sun"></i>';
+            themeText.textContent = 'Тема: Аска';
+        }
+
+        // Обработчик переключения темы
+        themeToggle.addEventListener('click', function () {
+            if (body.classList.contains('rei-theme')) {
+                // Переключаем на тему Аски
+                body.classList.remove('rei-theme');
+                body.classList.add('aska-theme');
+                themeIcon.innerHTML = '<i class="fas fa-sun"></i>';
+                themeText.textContent = 'Тема: Аска';
+                localStorage.setItem('portfolioTheme', 'aska');
+
+                // Добавляем NERV теги для темной темы
+                addEvangelionTags();
+            } else {
+                // Переключаем на тему Рей
+                body.classList.remove('aska-theme');
+                body.classList.add('rei-theme');
+                themeIcon.innerHTML = '<i class="fas fa-moon"></i>';
+                themeText.textContent = 'Тема: Рей';
+                localStorage.setItem('portfolioTheme', 'rei');
+
+                // Удаляем NERV теги
+                removeEvangelionTags();
+            }
+
+            // Анимация переключения
+            themeToggle.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                themeToggle.style.transform = 'scale(1)';
+            }, 150);
+        });
+
+        // Добавление тегов NERV для темной темы
+        function addEvangelionTags() {
+            // Удаляем старые теги, если есть
+            removeEvangelionTags();
+
+            // Добавляем теги к заголовкам разделов
+            const sectionTitles = document.querySelectorAll('.section-title');
+            sectionTitles.forEach(title => {
+                const tag = document.createElement('div');
+                tag.className = 'nerv-tag';
+                tag.textContent = 'NERV';
+                tag.style.top = '-10px';
+                tag.style.right = '-40px';
+                title.style.position = 'relative';
+                title.appendChild(tag);
+            });
+
+            // Добавляем теги к карточкам навыков
+            const skillCards = document.querySelectorAll('.skill-card');
+            skillCards.forEach(card => {
+                const tag = document.createElement('div');
+                tag.className = 'seele-tag';
+                tag.textContent = 'SEELE';
+                tag.style.top = '10px';
+                tag.style.right = '10px';
+                card.style.position = 'relative';
+                card.appendChild(tag);
+            });
+        }
+
+        // Удаление тегов NERV
+        function removeEvangelionTags() {
+            const tags = document.querySelectorAll('.nerv-tag, .seele-tag');
+            tags.forEach(tag => tag.remove());
+        }
+
+        // Инициализация тегов при загрузке, если активна тема Аски
+        if (savedTheme === 'aska') {
+            setTimeout(addEvangelionTags, 100);
+        }
+
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Наблюдаем за элементами с анимацией
+        document.querySelectorAll('.skill-card, .quality-item, .dream-card').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Случайные мерцающие элементы в стиле интерфейса Евы
+        function createFlicker() {
+            const flicker = document.createElement('div');
+            flicker.style.position = 'fixed';
+            flicker.style.width = Math.random() * 10 + 2 + 'px';
+            flicker.style.height = Math.random() * 10 + 2 + 'px';
+            flicker.style.backgroundColor = body.classList.contains('aska-theme') ? '#ff4081' : '#3f51b5';
+            flicker.style.borderRadius = '50%';
+            flicker.style.opacity = '0';
+            flicker.style.zIndex = '-1';
+            flicker.style.left = Math.random() * 100 + 'vw';
+            flicker.style.top = Math.random() * 100 + 'vh';
+
+            document.body.appendChild(flicker);
+
+            // Анимация мерцания
+            const duration = Math.random() * 2 + 1;
+            const delay = Math.random() * 5;
+
+            flicker.animate([
+                { opacity: 0, transform: 'scale(0.5)' },
+                { opacity: 0.7, transform: 'scale(1)' },
+                { opacity: 0, transform: 'scale(0.5)' }
+            ], {
+                duration: duration * 1000,
+                delay: delay * 1000,
+                iterations: 1
+            });
+
+            // Удаляем элемент после анимации
+            setTimeout(() => {
+                if (flicker.parentNode) {
+                    flicker.parentNode.removeChild(flicker);
+                }
+            }, (duration + delay) * 1000);
+        }
+
+        // Создаем мерцания каждые 300ms
+        setInterval(createFlicker, 300);
+
+        // Добавляем эффект печатающего текста для заголовка
+        const heroTitle = document.querySelector('.hero h1');
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                heroTitle.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+
+        // Запускаем эффект печатающего текста после загрузки страницы
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+
+</html>
